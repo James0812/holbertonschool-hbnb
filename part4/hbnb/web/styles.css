@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #ff5a5f;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    height: 40px;
+}
+
+.login-button {
+    background-color: white;
+    color: #ff5a5f;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px 30px;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    flex: 1;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.85rem;
+}
+
+/* Cards */
+.place-card, .review-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    background-color: white;
+}
+
+.places-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.place-card h3 {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.place-card p {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.details-button {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 16px;
+    background-color: #ff5a5f;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* Place details */
+.place-details {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    background-color: white;
+}
+
+.place-info h1 {
+    margin-bottom: 10px;
+}
+
+.place-info p {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.reviews-section {
+    margin-top: 30px;
+}
+
+.review-card p {
+    margin-bottom: 6px;
+    color: #555;
+}
+
+/* Forms */
+.form-container {
+    max-width: 450px;
+    margin: 40px auto;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.form-container h1 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.95rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5a5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.add-review-btn {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 24px;
+    background-color: #ff5a5f;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
