@@ -8,17 +8,6 @@ const PLACE_COLORS = [
     'linear-gradient(135deg,#2a2a1a,#1f1f0d)',
 ];
 
-const DEMO_PLACES = [
-    { id: 'demo-1', title: 'Appartement Bellecour', description: 'Magnifique appartement en plein cœur de Lyon, vue sur la place Bellecour.', price: 85 },
-    { id: 'demo-2', title: 'Studio Croix-Rousse', description: 'Studio cosy dans le quartier des Canuts, idéal pour un séjour solo.', price: 48 },
-    { id: 'demo-3', title: 'Loft Vieux-Lyon', description: 'Superbe loft dans une traboule rénovée du Vieux-Lyon, cachet unique.', price: 110 },
-    { id: 'demo-4', title: 'Maison avec jardin', description: 'Grande maison avec jardin privé, parfaite pour les familles.', price: 120 },
-    { id: 'demo-5', title: 'Villa Beaujolais', description: 'Villa de charme au cœur des vignes du Beaujolais, calme et nature.', price: 200 },
-    { id: 'demo-6', title: 'Appartement Part-Dieu', description: 'Appartement moderne proche de la gare Part-Dieu, idéal pour les voyageurs.', price: 70 },
-    { id: 'demo-7', title: 'Chalet Montagne', description: 'Chalet authentique avec vue panoramique sur les Alpes.', price: 150 },
-    { id: 'demo-8', title: 'Studio Confluence', description: 'Studio design dans le nouveau quartier Confluence, vue sur le Rhône.', price: 60 },
-];
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // ── Login page ──
@@ -106,19 +95,18 @@ function getCookie(name) {
 function checkAuthentication() {
     const token = getCookie('token');
     setLoginVisibility(token);
-    if (token) fetchPlaces(token);
-    else displayPlaces(DEMO_PLACES);
+    fetchPlaces(token);
 }
 
 async function fetchPlaces(token) {
     try {
         const response = await fetch('http://127.0.0.1:5000/api/v1/places/', {
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
         const places = await response.json();
-        displayPlaces(places.length ? places : DEMO_PLACES);
+        displayPlaces(places);
     } catch (e) {
-        displayPlaces(DEMO_PLACES);
+        displayPlaces([]);
     }
 }
 
@@ -155,12 +143,7 @@ function getPlaceIdFromURL() {
 }
 
 async function fetchPlaceDetails(token, placeId) {
-    if (placeId.startsWith('demo-')) {
-        const place = DEMO_PLACES.find(p => p.id === placeId);
-        if (place) { displayPlaceDetails(place); return; }
-    }
-    const headers = {};
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+    const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
     const response = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, { headers });
     if (!response.ok) return;
     const place = await response.json();
@@ -195,9 +178,7 @@ function displayPlaceDetails(place) {
     `;
 }
 
-// ── CORRECTION : ajout du user_id extrait du token JWT ──
 async function submitReview(token, placeId, rating, text) {
-    // Décoder le token JWT pour récupérer le user_id
     const payload = JSON.parse(atob(token.split('.')[1]));
     const userId = payload.sub || payload.id || payload.user_id;
 
@@ -217,3 +198,4 @@ async function submitReview(token, placeId, rating, text) {
         alert('Failed to submit review. Please try again.');
     }
 }
+
