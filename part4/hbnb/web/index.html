@@ -8,45 +8,32 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <header>
         <img src="logo.png" alt="HBnB Logo" class="logo">
-        <a href="login.html" class="login-button">Login</a>
+        <a href="login.html" id="login-link" class="login-button" style="display: none;">Login</a>
     </header>
-
     <nav>
         <a href="index.html">Home</a>
         <a href="login.html">Login</a>
     </nav>
-
     <main>
         <h2>Places</h2>
-        <div class="places-list">
-
-            <div class="place-card">
-                <h3>Cozy Studio in Paris</h3>
-                <p>Price per night: $85</p>
-                <a href="place.html" class="details-button">View Details</a>
-            </div>
-
-            <div class="place-card">
-                <h3>Modern Loft in Lyon</h3>
-                <p>Price per night: $65</p>
-                <a href="place.html" class="details-button">View Details</a>
-            </div>
-
-            <div class="place-card">
-                <h3>Seaside Villa in Nice</h3>
-                <p>Price per night: $220</p>
-                <a href="place.html" class="details-button">View Details</a>
-            </div>
-
+        <div class="filter-section">
+            <label for="price-filter">Filter by max price per night:</label>
+            <select id="price-filter">
+                <option value="all">All</option>
+                <option value="10">$10</option>
+                <option value="50">$50</option>
+                <option value="100">$100</option>
+            </select>
+        </div>
+        <div id="places-list" class="places-list">
+            <!-- Places will be dynamically injected here -->
         </div>
     </main>
-
     <footer>
         <p>&copy; 2024 HBnB - All rights reserved.</p>
     </footer>
-
+    <script src="scripts.js"></script>
 </body>
 </html>
