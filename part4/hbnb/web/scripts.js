@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.getElementById('places-list')) {
         checkAuthentication();
-
-        // ✅ Listener enregistré une seule fois au chargement de la page
         document.getElementById('price-filter').addEventListener('change', (e) => {
             const max = e.target.value;
             document.querySelectorAll('.place-card').forEach(card => {
@@ -20,6 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? 'block' : 'none';
             });
         });
+    }
+
+    if (document.getElementById('place-details')) {
+        const placeId = getPlaceIdFromURL();
+        const token = getCookie('token');
+
+        const loginLink = document.getElementById('login-link');
+        if (loginLink) loginLink.style.display = token ? 'none' : 'block';
+        const navLoginLink = document.getElementById('nav-login-link');
+        if (navLoginLink) navLoginLink.style.display = token ? 'none' : 'block';
+
+        const addReview = document.getElementById('add-review');
+        if (addReview) addReview.style.display = token ? 'block' : 'none';
+
+        if (placeId) fetchPlaceDetails(token, placeId);
     }
 });
 
@@ -47,15 +60,10 @@ function getCookie(name) {
 
 function checkAuthentication() {
     const token = getCookie('token');
-
-    // ✅ Cacher/afficher le lien login dans le header
     const loginLink = document.getElementById('login-link');
     if (loginLink) loginLink.style.display = token ? 'none' : 'block';
-
-    // ✅ Cacher/afficher le lien login dans la nav
     const navLoginLink = document.getElementById('nav-login-link');
     if (navLoginLink) navLoginLink.style.display = token ? 'none' : 'block';
-
     if (token) fetchPlaces(token);
 }
 
@@ -83,3 +91,47 @@ function displayPlaces(places) {
         list.appendChild(card);
     });
 }
+
+function getPlaceIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+}
+
+async function fetchPlaceDetails(token, placeId) {
+    const headers = {};
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+    const response = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, { headers });
+    if (!response.ok) return;
+    const place = await response.json();
+    displayPlaceDetails(place);
+}
+
+function displayPlaceDetails(place) {
+    const section = document.getElementById('place-details');
+    section.innerHTML = `
+        <div class="place-info">
+            <h1>${place.title}</h1>
+            <p><strong>Price per night:</strong> $${place.price ?? 'N/A'}</p>
+            <p><strong>Description:</strong> ${place.description || 'No description'}</p>
+            <p><strong>Amenities:</strong> ${
+                place.amenities && place.amenities.length
+                    ? place.amenities.map(a => a.name).join(', ')
+                    : 'None'
+            }</p>
+        </div>
+        <section class="reviews-section">
+            <h2>Reviews</h2>
+            ${
+                place.reviews && place.reviews.length
+                    ? place.reviews.map(r => `
+                        <div class="review-card">
+                            <p><strong>${r.user_name || 'Anonymous'}</strong></p>
+                            <p>Rating: ${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</p>
+                            <p>${r.text}</p>
+                        </div>`).join('')
+                    : '<p>No reviews yet.</p>'
+            }
+        </section>
+    `;
+}
+EOF
