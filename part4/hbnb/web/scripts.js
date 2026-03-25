@@ -43,7 +43,7 @@ function checkAuthentication() {
 }
 
 async function fetchPlaces(token) {
-    const response = await fetch('http://127.0.0.1:5000/api/v1/places', {
+    const response = await fetch('http://127.0.0.1:5000/api/v1/places/', {
         headers: { 'Authorization': `Bearer ${token}` }
     });
     const places = await response.json();
@@ -64,11 +64,11 @@ function displayPlaces(places) {
     places.forEach(place => {
         const card = document.createElement('div');
         card.classList.add('place-card');
-        card.dataset.price = place.price_by_night ?? place.price ?? 0;
+        card.dataset.price = place.price ?? 0;
         card.innerHTML = `
-            <h3>${place.name}</h3>
+            <h3>${place.title}</h3>
             <p>${place.description || ''}</p>
-            <p><strong>Price per night:</strong> $${place.price_by_night ?? place.price ?? 'N/A'}</p>
+            <p><strong>Price per night:</strong> $${place.price ?? 'N/A'}</p>
             <a href="place.html?id=${place.id}" class="details-button">View Details</a>
         `;
         list.appendChild(card);
