@@ -1,43 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HBnB - Place Details</title>
+    <title>Détails du logement – HBnB</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts.js"></script>
 </head>
 <body>
 
 <header>
-    <img src="logo.png" alt="HBnB Logo" class="logo">
+    <a href="index.html" class="header-logo">
+        <div class="logo-icon">🏠</div>
+        <div class="logo-text">HBnB</div>
+    </a>
 
-    <div id="user-info" class="user-info" style="display: none;">
-        <span id="username-display"></span>
-        <button id="logout-btn" class="logout-btn">Logout</button>
+    <div class="header-right">
+        <div id="user-info" class="user-info" style="display:none;">
+            <span id="username-display"></span>
+            <button id="logout-btn">Logout</button>
+        </div>
+
+        <div id="login-link">
+            <a href="login.html">Connexion</a>
+        </div>
     </div>
-
-    <a href="login.html" id="login-link" class="login-button">Login</a>
 </header>
 
 <nav>
     <a href="index.html">Home</a>
-    <a href="login.html" id="nav-login-link">Login</a>
+    <a href="login.html">Connexion</a>
 </nav>
 
-<main>
-    <div id="place-details" class="place-details"></div>
+<section class="place-detail-hero">
+    <h1 id="place-title">Chargement...</h1>
+    <div id="place-meta" class="place-meta"></div>
+</section>
 
-    <section id="add-review" class="add-review-section" style="display: none;">
-        <h2>Add a Review</h2>
-        <a href="add_review.html" class="add-review-btn">Add a Review</a>
+<main class="place-detail-body">
+    <div id="place-details"></div>
+
+    <section id="add-review" class="add-review-banner" style="display:none;">
+        <div>
+            <h3>Vous avez séjourné ici ?</h3>
+            <p>Laissez un avis pour aider les futurs voyageurs.</p>
+        </div>
+        <a href="#" id="add-review-link">Ajouter un avis</a>
     </section>
 </main>
 
 <footer>
-    <p>&copy; 2024 HBnB - All rights reserved.</p>
+    © 2024 HBnB - Tous droits réservés.
 </footer>
 
-<script src="scripts.js"></script>
 </body>
 </html>
 

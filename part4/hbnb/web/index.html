@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>HBnB – Accueil</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts.js"></script>
 </head>
 <body>
 
 <header>
-    <div class="logo">HBnB</div>
-    <button class="header-btn" onclick="window.location.href='login.html'">
-        Connexion
-    </button>
+    <a href="index.html" class="header-logo">
+        <div class="logo-icon">🏠</div>
+        <div class="logo-text">HBnB</div>
+    </a>
+
+    <div class="header-right">
+        <div id="user-info" class="user-info" style="display:none;">
+            <span id="username-display"></span>
+            <button id="logout-btn">Logout</button>
+        </div>
+
+        <div id="login-link">
+            <a href="login.html">Connexion</a>
+        </div>
+    </div>
 </header>
 
 <nav>
@@ -19,16 +31,25 @@
     <a href="login.html">Connexion</a>
 </nav>
 
-<main>
-    <div class="card">
-        <h2>Bienvenue sur HBnB</h2>
-        <p class="subtitle">Trouvez votre prochain séjour en quelques clics.</p>
-        <p class="dashboard-info">
-            Cette page est un exemple d’accueil minimal.<br><br>
-            Utilise le bouton « Connexion » en haut à droite ou dans la barre de navigation
-            pour accéder à la page de connexion moderne.
-        </p>
-    </div>
+<section class="hero">
+    <span class="hero-badge">Bienvenue</span>
+    <h1>Trouvez votre prochain séjour</h1>
+    <p>Des logements uniques, partout dans le monde.</p>
+</section>
+
+<section class="filter-bar">
+    <label for="price-filter">Prix max :</label>
+    <select id="price-filter">
+        <option value="all">Tous</option>
+        <option value="50">50€</option>
+        <option value="100">100€</option>
+        <option value="200">200€</option>
+    </select>
+</section>
+
+<main class="places-section">
+    <h2>Logements disponibles</h2>
+    <div id="places-list"></div>
 </main>
 
 <footer>
