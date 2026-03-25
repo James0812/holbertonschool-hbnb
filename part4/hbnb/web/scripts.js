@@ -107,7 +107,7 @@ function checkAuthentication() {
     const token = getCookie('token');
     setLoginVisibility(token);
     if (token) fetchPlaces(token);
-    else displayPlaces(DEMO_PLACES); // affiche les démos si non connecté
+    else displayPlaces(DEMO_PLACES);
 }
 
 async function fetchPlaces(token) {
@@ -116,10 +116,8 @@ async function fetchPlaces(token) {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const places = await response.json();
-        // Si l'API renvoie une liste vide, on affiche les démos
         displayPlaces(places.length ? places : DEMO_PLACES);
     } catch (e) {
-        // Si l'API est hors ligne, on affiche les démos
         displayPlaces(DEMO_PLACES);
     }
 }
@@ -157,7 +155,6 @@ function getPlaceIdFromURL() {
 }
 
 async function fetchPlaceDetails(token, placeId) {
-    // Vérifie d'abord si c'est un lieu de démo
     if (placeId.startsWith('demo-')) {
         const place = DEMO_PLACES.find(p => p.id === placeId);
         if (place) { displayPlaceDetails(place); return; }
@@ -198,14 +195,19 @@ function displayPlaceDetails(place) {
     `;
 }
 
+// ── CORRECTION : ajout du user_id extrait du token JWT ──
 async function submitReview(token, placeId, rating, text) {
+    // Décoder le token JWT pour récupérer le user_id
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const userId = payload.sub || payload.id || payload.user_id;
+
     const response = await fetch('http://127.0.0.1:5000/api/v1/reviews/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ place_id: placeId, rating, text })
+        body: JSON.stringify({ place_id: placeId, rating, text, user_id: userId })
     });
     if (response.ok) {
         alert('Review submitted successfully!');
