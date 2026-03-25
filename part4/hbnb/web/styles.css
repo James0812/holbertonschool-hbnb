@@ -187,3 +187,26 @@ footer {
     border-radius: 5px;
     text-decoration: none;
 }
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.logout-btn {
+    background: #ff4d4d;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background: #e60000;
+}
+

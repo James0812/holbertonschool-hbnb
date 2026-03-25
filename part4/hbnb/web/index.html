@@ -4,37 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HBnB - Home</title>
-    <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <img src="logo.png" alt="HBnB Logo" class="logo">
-        <a href="login.html" id="login-link" class="login-button" style="display: none;">Login</a>
-    </header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="login.html" id="nav-login-link">Login</a>
-    </nav>
-    <main>
-        <h2>Places</h2>
-        <div class="filter-section">
-            <label for="price-filter">Filter by max price per night:</label>
-            <select id="price-filter">
-                <option value="all">All</option>
-                <option value="10">$10</option>
-                <option value="50">$50</option>
-                <option value="100">$100</option>
-            </select>
-        </div>
-        <div id="places-list" class="places-list">
-            <!-- Places will be dynamically injected here -->
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2024 HBnB - All rights reserved.</p>
-    </footer>
-    <script src="scripts.js"></script>
+
+<header>
+    <img src="logo.png" alt="HBnB Logo" class="logo">
+
+    <div id="user-info" class="user-info" style="display: none;">
+        <span id="username-display"></span>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+    </div>
+
+    <a href="login.html" id="login-link" class="login-button">Login</a>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="login.html" id="nav-login-link">Login</a>
+</nav>
+
+<main>
+    <h1>Available Places</h1>
+
+    <label for="price-filter">Filter by price:</label>
+    <select id="price-filter">
+        <option value="all">All</option>
+        <option value="50">Up to $50</option>
+        <option value="100">Up to $100</option>
+        <option value="200">Up to $200</option>
+    </select>
+
+    <div id="places-list" class="places-list"></div>
+</main>
+
+<footer>
+    <p>&copy; 2024 HBnB - All rights reserved.</p>
+</footer>
+
+<script src="scripts.js"></script>
 </body>
 </html>
-EOF
+
