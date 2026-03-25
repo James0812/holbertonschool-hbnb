@@ -14,6 +14,7 @@ db = SQLAlchemy()
 def create_app(config_name='testing'):
     """Application factory."""
     app = Flask(__name__)
+    app.url_map.strict_slashes = False
     app.config.from_object(config[config_name])
     jwt.init_app(app)
     bcrypt.init_app(app)
