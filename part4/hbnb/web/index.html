@@ -15,24 +15,19 @@
     </a>
 
     <div class="header-right">
-
-        <!-- 🔥 Bloc utilisateur (caché si pas connecté) -->
         <div id="user-info" class="user-info" style="display:none;">
             <span id="username-display"></span>
             <button id="logout-btn">Logout</button>
         </div>
 
-        <!-- 🔥 Bouton Connexion (caché si connecté) -->
         <div id="login-link">
             <a href="login.html">Connexion</a>
         </div>
-
     </div>
 </header>
 
 <nav>
     <a href="index.html">Home</a>
-    <a href="login.html">Connexion</a>
 </nav>
 
 <section class="hero">
@@ -60,7 +55,6 @@
     © 2024 HBnB - Tous droits réservés.
 </footer>
 
-<!-- 🔥 PATCH OBLIGATOIRE -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const token = getCookie("token");
