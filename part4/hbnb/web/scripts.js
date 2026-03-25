@@ -10,7 +10,10 @@ const PLACE_COLORS = [
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ── Login page ──
+    const token = getCookie('token');
+    updateUserUI(token);
+
+    // LOGIN PAGE
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', async (event) => {
@@ -21,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── Index page ──
+    // INDEX PAGE
     if (document.getElementById('places-list')) {
         checkAuthentication();
         document.getElementById('price-filter').addEventListener('change', (e) => {
@@ -33,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── Place details page ──
+    // PLACE DETAILS PAGE
     if (document.getElementById('place-details')) {
         const placeId = getPlaceIdFromURL();
         const token = getCookie('token');
@@ -47,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (placeId) fetchPlaceDetails(token, placeId);
     }
 
-    // ── Add review page ──
+    // ADD REVIEW PAGE
     const reviewForm = document.getElementById('review-form');
     if (reviewForm) {
         const token = getCookie('token');
@@ -62,6 +65,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// ─────────────────────────────────────────────
+// USER UI + LOGOUT
+// ─────────────────────────────────────────────
+
+function updateUserUI(token) {
+    const loginLink = document.getElementById('login-link');
+    const userInfo = document.getElementById('user-info');
+    const usernameDisplay = document.getElementById('username-display');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (!loginLink || !userInfo) return;
+
+    if (!token) {
+        loginLink.style.display = 'block';
+        userInfo.style.display = 'none';
+        return;
+    }
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+
+    const username =
+        payload.username ||
+        payload.name ||
+        payload.first_name ||
+        payload.email ||
+        "User";
+
+    usernameDisplay.textContent = username;
+
+    loginLink.style.display = 'none';
+    userInfo.style.display = 'flex';
+
+    logoutBtn.addEventListener('click', () => {
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = "index.html";
+    });
+}
+
+
+// ─────────────────────────────────────────────
+// AUTH + PLACES + REVIEWS
+// ─────────────────────────────────────────────
 
 function setLoginVisibility(token) {
     const loginLink = document.getElementById('login-link');
@@ -178,13 +225,10 @@ function displayPlaceDetails(place) {
     `;
 }
 
-//
-// 🔥 VERSION FINALE : user_id OBLIGATOIRE + affichage erreur complet
-//
 async function submitReview(token, placeId, rating, text) {
 
     const payload = JSON.parse(atob(token.split('.')[1]));
-    const userId = payload.sub;  // UUID de l’utilisateur connecté
+    const userId = payload.sub;
 
     const response = await fetch('http://127.0.0.1:5000/api/v1/reviews/', {
         method: 'POST',
