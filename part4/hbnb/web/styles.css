@@ -1,165 +1,54 @@
-/* GLOBAL */
-* {
-    box-sizing: border-box;
-}
-
 body {
     margin: 0;
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, #4f46e5, #9333ea);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    font-family: Arial, sans-serif;
 }
 
-/* HEADER */
 header {
-    background: #e11d48;
+    background: red;
     color: white;
-    padding: 15px 40px;
+    padding: 15px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
-header .logo {
-    font-size: 24px;
-    font-weight: 700;
-}
-
-header .header-btn {
-    background: white;
-    color: #e11d48;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-/* NAVBAR */
 nav {
-    background: #111827;
-    padding: 10px 40px;
-    display: flex;
-    gap: 20px;
+    background: black;
+    padding: 10px;
 }
 
 nav a {
-    color: #e5e7eb;
-    text-decoration: none;
-    font-size: 15px;
-}
-
-nav a:hover {
-    color: #f97316;
-}
-
-/* MAIN CONTENT */
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 20px;
-}
-
-/* CARD (LOGIN / DASHBOARD) */
-.card {
-    background: white;
-    width: 380px;
-    padding: 32px;
-    border-radius: 18px;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
-    animation: fadeIn 0.6s ease;
-}
-
-.card h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #111827;
-}
-
-.card p.subtitle {
-    text-align: center;
-    margin-top: -10px;
-    margin-bottom: 25px;
-    color: #6b7280;
-    font-size: 14px;
-}
-
-/* FORM */
-.card input {
-    width: 100%;
-    padding: 11px 12px;
-    margin-bottom: 16px;
-    border-radius: 10px;
-    border: 1px solid #d1d5db;
-    font-size: 14px;
-}
-
-.card input:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 1px #4f46e5;
-}
-
-.card button {
-    width: 100%;
-    padding: 11px;
-    border-radius: 10px;
-    border: none;
-    background: #4f46e5;
     color: white;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+    margin-right: 15px;
+    text-decoration: none;
 }
 
-.card button:hover {
-    background: #4338ca;
-    transform: translateY(-1px);
-}
-
-.card button:active {
-    transform: translateY(0);
-}
-
-/* MESSAGE */
-.message {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 14px;
-    color: #e11d48;
-}
-
-/* DASHBOARD CONTENT */
-.dashboard-info {
-    font-size: 14px;
-    color: #4b5563;
-    line-height: 1.5;
-}
-
-.dashboard-info pre {
-    background: #f3f4f6;
-    padding: 10px;
+.login-box {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f2f2f2;
     border-radius: 8px;
-    overflow-x: auto;
 }
 
-/* FOOTER */
+.login-box input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
 footer {
     text-align: center;
-    padding: 16px;
-    color: #e5e7eb;
-    font-size: 13px;
-}
-
-/* ANIMATION */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(18px); }
-    to { opacity: 1; transform: translateY(0); }
+    padding: 15px;
+    background: #ddd;
+    margin-top: 40px;
 }
 

@@ -9,10 +9,8 @@
 <body>
 
 <header>
-    <div class="logo">HBnB</div>
-    <button class="header-btn" onclick="window.location.href='login.html'">
-        Connexion
-    </button>
+    <h1>HBnB</h1>
+    <button onclick="window.location.href='login.html'">Connexion</button>
 </header>
 
 <nav>
@@ -21,16 +19,18 @@
 </nav>
 
 <main>
-    <div class="card">
+    <div class="login-box">
         <h2>Connexion</h2>
-        <p class="subtitle">Connecte-toi pour accéder à ton espace.</p>
 
-        <input id="email" type="email" placeholder="Email">
-        <input id="password" type="password" placeholder="Mot de passe">
+        <label>Email :</label>
+        <input id="email" type="email">
 
-        <button onclick="login()">Se connecter</button>
+        <label>Mot de passe :</label>
+        <input id="password" type="password">
 
-        <p class="message" id="message"></p>
+        <button onclick="login()">Connexion</button>
+
+        <p id="message"></p>
     </div>
 </main>
 
