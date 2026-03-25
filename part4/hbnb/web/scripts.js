@@ -11,6 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.getElementById('places-list')) {
         checkAuthentication();
+
+        // ✅ Listener enregistré une seule fois au chargement de la page
+        document.getElementById('price-filter').addEventListener('change', (e) => {
+            const max = e.target.value;
+            document.querySelectorAll('.place-card').forEach(card => {
+                card.style.display = (max === 'all' || parseFloat(card.dataset.price) <= parseFloat(max))
+                    ? 'block' : 'none';
+            });
+        });
     }
 });
 
@@ -48,14 +57,7 @@ async function fetchPlaces(token) {
     });
     const places = await response.json();
     displayPlaces(places);
-
-    document.getElementById('price-filter').addEventListener('change', (e) => {
-        const max = e.target.value;
-        document.querySelectorAll('.place-card').forEach(card => {
-            card.style.display = (max === 'all' || parseFloat(card.dataset.price) <= parseFloat(max))
-                ? 'block' : 'none';
-        });
-    });
+    // ✅ Plus de listener ici
 }
 
 function displayPlaces(places) {
