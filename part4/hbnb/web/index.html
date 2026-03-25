@@ -56,6 +56,14 @@
     © 2024 HBnB - Tous droits réservés.
 </footer>
 
+<!-- 🔥 PATCH CRITIQUE : force updateUserUI() -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const token = getCookie("token");
+    updateUserUI(token);
+});
+</script>
+
 </body>
 </html>
 
