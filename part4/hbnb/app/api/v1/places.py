@@ -22,7 +22,6 @@ place_update_model = api.model('PlaceUpdate', {
     'price': fields.Float(description='Price per night'),
     'latitude': fields.Float(description='Latitude of the place'),
     'longitude': fields.Float(description='Longitude of the place'),
-
 })
 
 @api.route('/')
@@ -47,6 +46,7 @@ class PlaceList(Resource):
         except ValueError as e:
             return {'error': str(e)}, 400
 
+
 @api.route('/<place_id>')
 class PlaceResource(Resource):
     @api.doc('get_place')
@@ -55,7 +55,12 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
-        return place.to_dict(), 200
+
+        place_data = place.to_dict()
+        reviews = facade.get_reviews_by_place(place_id)
+        place_data['reviews'] = [r.to_dict() for r in reviews]
+
+        return place_data, 200
 
     @api.doc('update_place')
     @api.expect(place_update_model, validate=True)
@@ -65,11 +70,14 @@ class PlaceResource(Resource):
         current_user_id = get_jwt_identity()
         claims = get_jwt()
         is_admin = claims.get('is_admin', False)
+
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
+
         if not is_admin and place.owner_id != current_user_id:
             return {'error': 'Unauthorized action'}, 403
+
         try:
             updated_place = facade.update_place(place_id, api.payload)
             return updated_place.to_dict(), 200
@@ -83,16 +91,20 @@ class PlaceResource(Resource):
         current_user_id = get_jwt_identity()
         claims = get_jwt()
         is_admin = claims.get('is_admin', False)
+
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
+
         if not is_admin and place.owner_id != current_user_id:
             return {'error': 'Unauthorized action'}, 403
+
         try:
             facade.delete_place(place_id)
             return {'message': 'Place deleted successfully'}, 200
         except ValueError as e:
             return {'error': str(e)}, 400
+
 
 # =========================================================================
 # AMENITIES D'UNE PLACE
@@ -107,6 +119,7 @@ class PlaceAmenities(Resource):
         if not place:
             return {'error': 'Place not found'}, 404
         return [a.to_dict() for a in place.amenities], 200
+
 
 @api.route('/<place_id>/amenities/<amenity_id>')
 class PlaceAmenityResource(Resource):
@@ -168,6 +181,7 @@ class PlaceAmenityResource(Resource):
         except Exception as e:
             return {'error': str(e)}, 500
 
+
 # =========================================================================
 # REVIEWS D'UNE PLACE
 # =========================================================================
@@ -180,6 +194,6 @@ class PlaceReviews(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
-        # ✅ Utiliser facade.get_reviews_by_place() au lieu de place.reviews
+
         reviews = facade.get_reviews_by_place(place_id)
         return [r.to_dict() for r in reviews], 200
