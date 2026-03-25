@@ -179,7 +179,7 @@ function displayPlaceDetails(place) {
 }
 
 //
-// 🔥 VERSION CORRIGÉE : PAS DE user_id DANS LE BODY
+// 🔥 VERSION AVEC AFFICHAGE D’ERREUR COMPLET
 //
 async function submitReview(token, placeId, rating, text) {
 
@@ -201,7 +201,7 @@ async function submitReview(token, placeId, rating, text) {
         window.location.href = `place.html?id=${placeId}`;
     } else {
         const err = await response.json().catch(() => null);
-        console.error("Review error:", err);
+        console.error("Review error:", JSON.stringify(err, null, 2));  // ← ICI LA MODIFICATION
         alert('Failed to submit review. Please try again.');
     }
 }
