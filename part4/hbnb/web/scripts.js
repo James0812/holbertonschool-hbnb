@@ -178,9 +178,10 @@ function displayPlaceDetails(place) {
     `;
 }
 
+//
+// 🔥 VERSION CORRIGÉE : PAS DE user_id DANS LE BODY
+//
 async function submitReview(token, placeId, rating, text) {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const userId = payload.sub || payload.id || payload.user_id;
 
     const response = await fetch('http://127.0.0.1:5000/api/v1/reviews/', {
         method: 'POST',
@@ -188,13 +189,19 @@ async function submitReview(token, placeId, rating, text) {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ place_id: placeId, rating, text, user_id: userId })
+        body: JSON.stringify({
+            place_id: placeId,
+            rating: rating,
+            text: text
+        })
     });
+
     if (response.ok) {
         alert('Review submitted successfully!');
-        document.getElementById('review-form').reset();
-        if (placeId) window.location.href = `place.html?id=${placeId}`;
+        window.location.href = `place.html?id=${placeId}`;
     } else {
+        const err = await response.json().catch(() => null);
+        console.error("Review error:", err);
         alert('Failed to submit review. Please try again.');
     }
 }
