@@ -47,7 +47,15 @@ function getCookie(name) {
 
 function checkAuthentication() {
     const token = getCookie('token');
-    document.getElementById('login-link').style.display = token ? 'none' : 'block';
+
+    // ✅ Cacher/afficher le lien login dans le header
+    const loginLink = document.getElementById('login-link');
+    if (loginLink) loginLink.style.display = token ? 'none' : 'block';
+
+    // ✅ Cacher/afficher le lien login dans la nav
+    const navLoginLink = document.getElementById('nav-login-link');
+    if (navLoginLink) navLoginLink.style.display = token ? 'none' : 'block';
+
     if (token) fetchPlaces(token);
 }
 
@@ -57,7 +65,6 @@ async function fetchPlaces(token) {
     });
     const places = await response.json();
     displayPlaces(places);
-    // ✅ Plus de listener ici
 }
 
 function displayPlaces(places) {
