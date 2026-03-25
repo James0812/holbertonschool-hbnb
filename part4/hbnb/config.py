@@ -15,16 +15,19 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration."""
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///hbnb.db'   # Base persistante
 
 
 class TestingConfig(Config):
+    """Testing configuration (in-memory or ephemeral)."""
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
     JWT_SECRET_KEY = 'test-secret'
+
 
 config = {
     'development': DevelopmentConfig,
-    'default': DevelopmentConfig,
     'testing': TestingConfig,
+    'default': DevelopmentConfig,
 }
+
