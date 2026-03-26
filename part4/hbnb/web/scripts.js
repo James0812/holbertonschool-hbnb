@@ -194,7 +194,7 @@ function displayPlaceDetails(place) {
   if (titleEl) titleEl.textContent = place.title;
   if (metaEl) {
     metaEl.innerHTML = `
-      <div class="place-meta-item">📍 ${place.location || 'Emplacement non précisé'}</div>
+      <div class="place-meta-item">📍 ${place.address || 'Emplacement non précisé'}</div>
       <div class="place-meta-item">💰 $${place.price ?? 'N/A'} / nuit</div>
       <div class="place-meta-item">⭐ ${place.reviews?.length || 0} avis</div>
     `;
@@ -267,3 +267,4 @@ async function submitReview(token, placeId, rating, text) {
     alert('Échec de la publication. Veuillez réessayer.');
   }
 }
+
