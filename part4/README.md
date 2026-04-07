@@ -113,7 +113,7 @@ pip install -r requirements.txt
 
 ### Étape 4 — Lancer le serveur
 ```bash
-python run.py
+python3 -m hbnb.run
 ```
 
 ### Étape 5 — Ouvrir le frontend
@@ -123,6 +123,7 @@ Ouvrez votre navigateur sur :
 http://127.0.0.1:5000
 ```
 
+python3 -m http.server 8080
 ---
 
 ## 🌐 Pages du Frontend
